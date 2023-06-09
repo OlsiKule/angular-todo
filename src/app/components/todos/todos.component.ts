@@ -20,14 +20,11 @@ export class TodosComponent implements OnInit {
   // lifecycle hook called after component is initialized
   ngOnInit(): void {
     this.todos = [
-      {
-        content: "First todo",
-        completed: false
-      },
-      {
-        content: "Second todo",
-        completed: false
-      }
+      // this is the blueprint of a given todo item
+      // {
+      //   content: "",
+      //   completed: false
+      // }
     ];
   }
 // method used to toggle the completed property
@@ -35,20 +32,15 @@ export class TodosComponent implements OnInit {
     // value, ID as params
     this.todos.map((v, i) => {
       if (i == id) v.completed = !v.completed;
-
       return v;
     })
-
-
   }
 
 
 
   // method to delete a todo item from array
   deleteTodo (id: number) {
-
     this.todos = this.todos.filter((v, i) => i != id);
-
   }
 
   // method to add a new todo item to array
@@ -59,7 +51,6 @@ export class TodosComponent implements OnInit {
             content: this.inputTodo,
             completed: false
           });
-
       this.inputTodo = "";
     }
   }
