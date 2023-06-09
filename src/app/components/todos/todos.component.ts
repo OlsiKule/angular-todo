@@ -14,6 +14,11 @@ export class TodosComponent implements OnInit {
 // inputTodo property with empty string
   inputTodo: string = "";
 
+  // property to track edit mode
+  editMode: boolean = false;
+  // property to store the index of the todo being edited
+  editedTodoIndex: number = -1;
+
   // constructor method used for dependency injection and initialization
   constructor() {}
 
@@ -33,7 +38,7 @@ export class TodosComponent implements OnInit {
     this.todos.map((v, i) => {
       if (i == id) v.completed = !v.completed;
       return v;
-    })
+    });
   }
 
 
@@ -44,14 +49,27 @@ export class TodosComponent implements OnInit {
   }
 
   // method to add a new todo item to array
-  addTodo () {
-    // prevents empty strings from being added to the list
+  addTodo() {
     if (this.inputTodo.trim() !== '') {
-          this.todos.push ({
-            content: this.inputTodo,
-            completed: false
-          });
+      if (this.editMode) {
+        // Update the existing todo item in edit mode
+        this.todos[this.editedTodoIndex].content = this.inputTodo;
+        this.editMode = false;
+        this.editedTodoIndex = -1;
+      } else {
+        // Add a new todo item
+        this.todos.push({
+          content: this.inputTodo,
+          completed: false
+        });
+      }
       this.inputTodo = "";
     }
+  }
+
+  editTodo (id: number) {
+    this.inputTodo = this.todos[id].content;
+    this.editMode = true;
+    this.editedTodoIndex = id;
   }
 }

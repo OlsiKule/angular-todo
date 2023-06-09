@@ -54,3 +54,8 @@
 	font-size: 18px;
 	font-weight: 700;
 }
+
+.todo .delete {
+  margin: 0.5rem;
+}
+

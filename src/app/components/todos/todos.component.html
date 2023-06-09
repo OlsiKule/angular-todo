@@ -10,9 +10,21 @@
     />
     <input type="submit" value="Add ToDo" class="todo-submit">
   </form>
-  <div  *ngFor="let todo of todos; let i = index;" class="todo {{ (todo.completed ? 'done' : '') }}">
-    <div class="id">{{ i }} </div>
-    <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
+  <div *ngFor="let todo of todos; let i = index;" class="todo {{ (todo.completed ? 'done' : '') }}">
+    <div class="id">{{ i }}</div>
+    <div class="content" *ngIf="!editMode || i !== editedTodoIndex" (click)="toggleDone(i)">
+      {{ todo.content }}
+    </div>
+    <input
+      *ngIf="editMode && i === editedTodoIndex"
+      type="text"
+      class="todo-input"
+      [(ngModel)]="inputTodo"
+      required
+    />
+    <button *ngIf="!editMode || i !== editedTodoIndex" class="edit" (click)="editTodo(i)">Edit</button>
+    <button *ngIf="editMode && i === editedTodoIndex" class="save" (click)="addTodo()">Save</button>
     <button class="delete" (click)="deleteTodo(i)">Remove</button>
   </div>
+
 </div>
