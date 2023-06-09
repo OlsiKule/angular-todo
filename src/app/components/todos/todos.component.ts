@@ -39,7 +39,10 @@ export class TodosComponent implements OnInit {
       return v;
     })
 
+
   }
+
+
 
   // method to delete a todo item from array
   deleteTodo (id: number) {
@@ -50,12 +53,14 @@ export class TodosComponent implements OnInit {
 
   // method to add a new todo item to array
   addTodo () {
-    this.todos.push ({
-      content: this.inputTodo,
-      completed: false
-    });
+    // prevents empty strings from being added to the list
+    if (this.inputTodo.trim() !== '') {
+          this.todos.push ({
+            content: this.inputTodo,
+            completed: false
+          });
 
-    this.inputTodo = "";
+      this.inputTodo = "";
+    }
   }
-
 }
