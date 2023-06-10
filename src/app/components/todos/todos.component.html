@@ -10,8 +10,11 @@
     />
     <input type="submit" value="Add ToDo" class="todo-submit">
   </form>
+  <!-- *ngfor directive to iterate over an array and assign variable todo-->
   <div *ngFor="let todo of todos; let i = index;" class="todo {{ (todo.completed ? 'done' : '') }}">
+    <!-- dynamically assigns the CSS classes "todo" and "done" to the div based on the completed property of "todo" obj -->
     <div class="id">{{ i }}</div>
+    <!-- displays the index i -->
     <div class="content" *ngIf="!editMode || i !== editedTodoIndex" (click)="toggleDone(i)">
       {{ todo.content }}
     </div>
