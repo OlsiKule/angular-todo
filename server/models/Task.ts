@@ -22,12 +22,18 @@ Task.init(
   {
     sequelize,
     modelName: 'Task',
+    tableName: 'tasks',
   }
 );
 
-// Synchronize the models with the database
-sequelize.sync({ force: false }).then(() => {
-  console.log('Database synchronized');
-});
+sequelize.sync({ force: false }) // <--- This synchronizes the models with the database
+  .then(() => {
+    console.log('Database synchronized');
+    // Start the server or perform any other operations
+  })
+  .catch((error) => {
+    console.error('Error syncing database:', error);
+    process.exit(1);
+  });
 
 export default Task;

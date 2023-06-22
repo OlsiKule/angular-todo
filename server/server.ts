@@ -103,13 +103,16 @@ app.delete('/Tasks/:id', async (req: Request, res: Response) => {
   }
 });
 
-sequelize.sync().then(() => {
-  console.log('Database synchronized');
-  // Start the server
-  app.listen(3000, () => {
-    console.log('Server started on port 3000');
+// Synchronize the models with the database
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('Database synchronized');
+    // Start the server or perform other operations
+    app.listen(3000, () => {
+      console.log('Server started on port 3000');
+    });
+  })
+  .catch((error) => {
+    console.error('Error syncing database:', error);
+    process.exit(1);
   });
-}).catch((error) => {
-  console.error('Error syncing database:', error);
-  process.exit(1);
-});
